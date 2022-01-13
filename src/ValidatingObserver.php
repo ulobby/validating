@@ -15,7 +15,7 @@ class ValidatingObserver
      * @param  \Illuminate\Database\Eloquent\Model $model
      * @return boolean
      */
-    public function saving(Model $model)
+    public function saving($model)
     {
         return $this->performValidation($model, 'saving');
     }
@@ -26,7 +26,7 @@ class ValidatingObserver
      * @param  \Illuminate\Database\Eloquent\Model $model
      * @return boolean
      */
-    public function restoring(Model $model)
+    public function restoring($model)
     {
         return $this->performValidation($model, 'restoring');
     }
@@ -38,7 +38,7 @@ class ValidatingObserver
      * @param  string $event
      * @return boolean
      */
-    protected function performValidation(Model $model, $event)
+    protected function performValidation($model, $event)
     {
         // If the model has validating enabled, perform it.
         if ($model->getValidating()) {
@@ -72,7 +72,7 @@ class ValidatingObserver
      * @param  string $event
      * @return mixed
      */
-    protected function fireValidatingEvent(Model $model, $event)
+    protected function fireValidatingEvent($model, $event)
     {
         return Event::until("eloquent.validating: ".get_class($model), [$model, $event]);
     }
@@ -84,7 +84,7 @@ class ValidatingObserver
      * @param  string $status
      * @return void
      */
-    protected function fireValidatedEvent(Model $model, $status)
+    protected function fireValidatedEvent($model, $status)
     {
         Event::dispatch("eloquent.validated: ".get_class($model), [$model, $status]);
     }
